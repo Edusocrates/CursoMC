@@ -1,6 +1,10 @@
 package com.pheonixIT.CursoMC.resources;
 
 import com.pheonixIT.CursoMC.resources.domain.Categoria;
+import com.pheonixIT.CursoMC.services.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,16 +16,15 @@ import java.util.List;
 @RequestMapping(value = "/Categorias")
 public class CategoriaResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> Listar(){
-        Categoria cat1 = new Categoria(1,"Informatica");
-        Categoria cat2 = new Categoria(2,"Escritorio");
-        List<Categoria> lista = new ArrayList<Categoria>();
-        lista.add(cat1);
-        lista.add(cat2);
+    @Autowired
+    private CategoriaService service;
 
 
-        return lista ;
+    @RequestMapping(value ="/(id)",method = RequestMethod.GET)
+    public ResponseEntity<?> find(@PathVariable Integer id){
+        Categoria obj = service.buscar(id);
+
+        return ResponseEntity.ok().body(obj);
     }
 
 }
