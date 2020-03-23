@@ -2,6 +2,8 @@ package com.pheonixIT.CursoMC.resources.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(name = "CATEGORIA")
@@ -11,6 +13,10 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String nome;
+
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos = new ArrayList<Produto>();
+
 
     public Categoria(){
 
@@ -36,6 +42,14 @@ public class Categoria implements Serializable {
 
     public String getNome() {
         return nome;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     @Override
