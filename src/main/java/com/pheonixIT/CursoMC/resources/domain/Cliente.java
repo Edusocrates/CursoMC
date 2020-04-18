@@ -1,9 +1,6 @@
 package com.pheonixIT.CursoMC.resources.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
@@ -19,7 +16,11 @@ public class Cliente implements Serializable {
     private String email;
     private String cpf_cnpj;
     private Integer tipo;
+
+    @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<Endereco>();
+    @ElementCollection
+    @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
     public Integer getId() {

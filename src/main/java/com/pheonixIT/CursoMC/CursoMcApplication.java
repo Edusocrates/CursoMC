@@ -1,13 +1,7 @@
 package com.pheonixIT.CursoMC;
 
-import com.pheonixIT.CursoMC.repositories.CategoriaRepository;
-import com.pheonixIT.CursoMC.repositories.CidadeRepository;
-import com.pheonixIT.CursoMC.repositories.EstadoRepository;
-import com.pheonixIT.CursoMC.repositories.ProdutoRepository;
-import com.pheonixIT.CursoMC.resources.domain.Categoria;
-import com.pheonixIT.CursoMC.resources.domain.Cidade;
-import com.pheonixIT.CursoMC.resources.domain.Estado;
-import com.pheonixIT.CursoMC.resources.domain.Produto;
+import com.pheonixIT.CursoMC.repositories.*;
+import com.pheonixIT.CursoMC.resources.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,6 +22,13 @@ public class CursoMcApplication implements CommandLineRunner {
 
     @Autowired
     private CidadeRepository cidadeRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(CursoMcApplication.class, args);
@@ -66,6 +67,18 @@ public class CursoMcApplication implements CommandLineRunner {
 
         estadoRepository.saveAll(Arrays.asList(est1,est2));
         cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+
+        Cliente cli1 = new Cliente(null,"Maria Silva","magia@email.com","5165456465", TipoCliente.PESSOA_FISICA);
+        cli1.getTelefones().addAll(Arrays.asList("99523099","30122000"));
+
+        Endereco e1 = new Endereco(null,"Rua flores","300","apto 300","Jardim","40245636889",cli1,c1);
+        Endereco e2 = new Endereco(null,"Rua flores","300","apto 300","Jardim","40245636889",cli1,c2);
+
+        cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+
+        clienteRepository.saveAll(Arrays.asList(cli1));
+
+
 
 
 
